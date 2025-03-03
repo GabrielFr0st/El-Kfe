@@ -17,7 +17,7 @@ import BlogDetail from "./pages/BlogDetail";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = process.env.REACT_APP_API_URL || "https://el-kfe-db.onrender.com";
 
 function App() {
   const [filters, setFilters] = useState({
