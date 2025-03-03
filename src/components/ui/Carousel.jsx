@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import productoBalanza from "../../assets/img/3.jpg";
 import productoCafeValentina from "../../assets/img/1.png";
@@ -15,9 +15,9 @@ function Carousel() {
 
   const [index, setIndex] = useState(0);
 
-  const siguiente = () => {
+  const siguiente = useCallback(() => {
     setIndex((prevIndex) => (prevIndex + 1) % productos.length);
-  };
+  }, [productos.length]);
 
   const anterior = () => {
     setIndex((prevIndex) => (prevIndex - 1 + productos.length) % productos.length);
@@ -26,7 +26,7 @@ function Carousel() {
   useEffect(() => {
     const interval = setInterval(siguiente, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [siguiente]);
 
   const irADetalle = () => {
     const idProducto = productos[index]?.id;
