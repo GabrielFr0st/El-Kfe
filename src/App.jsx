@@ -17,6 +17,8 @@ import BlogDetail from "./pages/BlogDetail";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 function App() {
   const [filters, setFilters] = useState({
     category: "all",
@@ -26,7 +28,7 @@ function App() {
   const [products, setProducts] = useState(null);
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/products/`)
+      .get(`${API_URL}/api/products/`)
       .then((response) => setProducts(response.data))
       .catch((error) =>
         console.error("Error al obtener los productos:", error)

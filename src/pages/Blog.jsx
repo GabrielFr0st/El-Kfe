@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 function Blog() {
   const [blogs, setBlogs] = useState([]);
   const [filter, setFilter] = useState("all");
@@ -9,7 +11,7 @@ function Blog() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/blog/")
+      .get(`${API_URL}/api/blog/`)
       .then((response) => setBlogs(response.data))
       .catch((error) => console.error("Error al obtener blogs:", error));
   }, []);

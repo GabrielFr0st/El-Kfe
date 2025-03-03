@@ -26,7 +26,7 @@ function Carousel() {
   useEffect(() => {
     const interval = setInterval(siguiente, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [siguiente]);
 
   const irADetalle = () => {
     const idProducto = productos[index]?.id;

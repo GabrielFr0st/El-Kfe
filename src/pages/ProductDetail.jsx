@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import axios from "axios";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 function ProductDetail() {
   const { id } = useParams();
   const { addToCart } = useCart();
@@ -10,7 +12,7 @@ function ProductDetail() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/products/${id}`)
+      .get(`${API_URL}/api/products/${id}`)
       .then((response) => setProduct(response.data))
       .catch((error) => console.error("Error al obtener el producto:", error));
   }, [id]);

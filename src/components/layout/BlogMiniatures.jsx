@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 function BlogMiniatures() {
   const [entries, setEntries] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/blog/mini")
+    axios.get(`${API_URL}/api/blog/mini`)
       .then(response => setEntries(response.data))
       .catch(error => console.error("Error al cargar las entradas del blog:", error));
   }, []);

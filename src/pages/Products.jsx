@@ -14,9 +14,9 @@ function Products({ products, changeFilters }) {
     }));
   };
 
-  const filteredProducts = selectedCategory === "all" 
-    ? products 
-    : products.filter(product => product.category.toLowerCase() === selectedCategory);
+  const filteredProducts = selectedCategory === "all"
+    ? products
+    : products.filter((product) => product.category.toLowerCase() === selectedCategory);
 
   return (
     <div className="products-container container mx-auto mt-8 p-6 rounded-lg shadow-lg">

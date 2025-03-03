@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 function LoginPage() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
@@ -10,7 +12,7 @@ function LoginPage() {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/login", data);
+      const response = await axios.post(`${API_URL}/api/auth/login`, data);
       localStorage.setItem("token", response.data.token);
       navigate("/");
     } catch (err) {
