@@ -1,0 +1,176 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+:root {
+  --background: #f5f1e8;
+  --text: #3e2723;
+  --primary: #8d6e63;
+  --border: #d7ccc8;
+  --card-bg: #ffffff;
+  --container-bg: #faf3eb;
+  --cards-wrapper-bg: #f0e6dd;
+}
+
+.dark {
+  --background: #1e1e1e;
+  --text: #e0e0e0;
+  --primary: #a1887f;
+  --border: #4e342e;
+  --card-bg: #252525;
+  --container-bg: #2e2e2e;
+  --cards-wrapper-bg: #1c1c1c;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: "Inter", sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.dark body {
+  background-color: var(--background);
+  color: var(--text);
+}
+
+header {
+  background-color: var(--border);
+  color: var(--text);
+  padding: 1rem;
+}
+
+.dark header {
+  background-color: #2a1d1a;
+  color: #ffffff;
+}
+
+main {
+  flex-grow: 1;
+  width: 100%;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn {
+  background-color: var(--primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: opacity 0.3s ease;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}
+
+.home-container,
+.blog-container,
+.products-container,
+.product-detail-container {
+  background-color: var(--container-bg);
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.dark .home-container,
+.dark .blog-container,
+.dark .products-container,
+.dark .product-detail-container {
+  background-color: var(--container-bg);
+}
+
+.cards-wrapper,
+.blog-miniatures-wrapper,
+.carousel-wrapper,
+.filters-wrapper,
+.products-wrapper {
+  background-color: var(--cards-wrapper-bg);
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.dark .cards-wrapper,
+.dark .blog-miniatures-wrapper,
+.dark .carousel-wrapper,
+.dark .filters-wrapper,
+.dark .products-wrapper {
+  background-color: var(--cards-wrapper-bg);
+}
+
+.card,
+.blog-card,
+.product-card,
+.product-image-wrapper,
+.product-info-wrapper {
+  background-color: var(--card-bg);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border);
+}
+
+.dark .card,
+.dark .blog-card,
+.dark .product-card,
+.dark .product-image-wrapper,
+.dark .product-info-wrapper {
+  background-color: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--primary);
+}
+
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+  color: #ffffff;
+}
+
+.dark p, .dark span, .dark a {
+  color: #e0e0e0;
+}
+
+.dark a {
+  color: #ffcc80;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.dark a:hover {
+  color: #ffab40;
+}
+
+.dark-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background-color: var(--primary);
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+footer {
+  background-color: var(--border);
+  color: var(--text);
+  text-align: center;
+  padding: 1rem;
+  margin-top: auto;
+  width: 100%;
+}
+
+.dark footer {
+  background-color: #2a1d1a;
+  color: #ffffff;
+}
