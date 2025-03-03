@@ -17,16 +17,19 @@ function Carousel() {
 
   const siguiente = useCallback(() => {
     setIndex((prevIndex) => (prevIndex + 1) % productos.length);
-  }, [productos.length]);
+  }, [productos.length]); 
 
   const anterior = () => {
     setIndex((prevIndex) => (prevIndex - 1 + productos.length) % productos.length);
   };
 
   useEffect(() => {
-    const interval = setInterval(siguiente, 3000);
+    const interval = setInterval(() => {
+      setIndex((prevIndex) => (prevIndex + 1) % productos.length);
+    }, 3000);
+
     return () => clearInterval(interval);
-  }, [siguiente]);
+  }, [productos.length]); 
 
   const irADetalle = () => {
     const idProducto = productos[index]?.id;
