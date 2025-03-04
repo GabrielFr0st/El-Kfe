@@ -22,10 +22,11 @@ const API_URL = process.env.REACT_APP_API_URL || "https://el-kfe-db.onrender.com
 function App() {
   const [filters, setFilters] = useState({
     category: "all",
-    orderBy: "id_ASC",
+    orderBy: "name_ASC",
   });
 
-  const [products, setProducts] = useState(null);
+  const [products, setProducts] = useState([]);
+
   useEffect(() => {
     axios
       .get(`${API_URL}/api/products/`)
@@ -35,51 +36,27 @@ function App() {
       );
   }, []);
 
-  if (!products) {
-    return <p className="text-center text-lg font-semibold">Cargando...</p>;
-  }
-
   const filterProducts = () => {
+    let filtered = [...products];
+
+    if (filters.category !== "all") {
+      filtered = filtered.filter((product) => product.category.toLowerCase() === filters.category.toLowerCase());
+    }
+
     if (filters.orderBy === "price_ASC") {
-      const orderedProducts = [...products].sort((a, b) => a.price - b.price);
-      return orderedProducts.filter((product) => {
-        if (filters.category !== "all") {
-          return product.category === filters.category;
-        }
-        return true;
-      });
+      filtered.sort((a, b) => a.price - b.price);
+    } else if (filters.orderBy === "price_DESC") {
+      filtered.sort((a, b) => b.price - a.price);
+    } else if (filters.orderBy === "name_ASC") {
+      filtered.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (filters.orderBy === "name_DESC") {
+      filtered.sort((a, b) => b.name.localeCompare(a.name));
     }
 
-    if (filters.orderBy === "price_DESC") {
-      const orderedProducts = [...products].sort((a, b) => b.price - a.price);
-      return orderedProducts.filter((product) => {
-        if (filters.category !== "all") {
-          return product.category === filters.category;
-        }
-        return true;
-      });
-    }
-    if (filters.orderBy === "id_ASC") {
-      const orderedProducts = [...products].sort((a, b) => a.id - b.id);
-      return orderedProducts.filter((product) => {
-        if (filters.category !== "all") {
-          return product.category === filters.category;
-        }
-        return true;
-      });
-    }
-
-    if (filters.orderBy === "id_DESC") {
-      const orderedProducts = [...products].sort((a, b) => b.id - a.id);
-      return orderedProducts.filter((product) => {
-        if (filters.category !== "all") {
-          return product.category === filters.category;
-        }
-        return true;
-      });
-    }
+    return filtered;
   };
-  const filteredProducts = filterProducts(products);
+
+  const filteredProducts = filterProducts();
 
   return (
     <ThemeProvider>
