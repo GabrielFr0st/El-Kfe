@@ -1,22 +1,46 @@
 import { useCart } from "../context/CartContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Products({ products, changeFilters }) {
   const { addToCart } = useCart();
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [filters, setFilters] = useState({
+    category: "all",
+    orderBy: "name_ASC"
+  });
+
+  useEffect(() => {
+    changeFilters(filters);
+  }, [filters, changeFilters]);
 
   const handleFilterChange = (event) => {
     const { name, value } = event.target;
-    setSelectedCategory(value);
-    changeFilters((prevState) => ({
-      ...prevState,
-      [name]: value,
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [name]: value
     }));
   };
 
-  const filteredProducts = selectedCategory === "all"
-    ? products
-    : products.filter((product) => product.category.toLowerCase() === selectedCategory);
+  const filteredProducts = products
+    .filter((product) =>
+      filters.category === "all"
+        ? true
+        : product.category.toLowerCase() === filters.category.toLowerCase()
+    )
+    .sort((a, b) => {
+      if (filters.orderBy === "price_ASC") {
+        return a.price - b.price;
+      }
+      if (filters.orderBy === "price_DESC") {
+        return b.price - a.price;
+      }
+      if (filters.orderBy === "name_ASC") {
+        return a.name.localeCompare(b.name);
+      }
+      if (filters.orderBy === "name_DESC") {
+        return b.name.localeCompare(a.name);
+      }
+      return 0;
+    });
 
   return (
     <div className="products-container container mx-auto mt-8 p-6 rounded-lg shadow-lg">
@@ -27,8 +51,8 @@ function Products({ products, changeFilters }) {
           <label htmlFor="category">Categoría: </label>
           <select
             id="category"
-            className="border border-gray-300 dark:border-gray-600 rounded-md p-1 dark:bg-dark-card dark:text-white"
             name="category"
+            className="border border-gray-300 dark:border-gray-600 rounded-md p-1 dark:bg-dark-card dark:text-white"
             onChange={handleFilterChange}
           >
             <option value="all">Todos</option>
@@ -37,15 +61,15 @@ function Products({ products, changeFilters }) {
           </select>
         </div>
         <div>
-          <label htmlFor="order-by">Ordenar por: </label>
+          <label htmlFor="orderBy">Ordenar por: </label>
           <select
             id="orderBy"
             name="orderBy"
             className="border border-gray-300 dark:border-gray-600 rounded-md p-1 dark:bg-dark-card dark:text-white"
             onChange={handleFilterChange}
           >
-            <option value="id_ASC">ID Ascendente</option>
-            <option value="id_DESC">ID Descendente</option>
+            <option value="name_ASC">Nombre Ascendente</option>
+            <option value="name_DESC">Nombre Descendente</option>
             <option value="price_ASC">Precio Ascendente</option>
             <option value="price_DESC">Precio Descendente</option>
           </select>
